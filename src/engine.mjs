@@ -40,7 +40,7 @@ export function configValues(current,{name}={}){
   const values={chatTabEnabled:true,coworkTabEnabled:true,builtinBrowserEnabled:true,chatAdvancedFileAnalysisEnabled:true};
   // 仅修正本项目实测的无效覆盖值，不覆盖用户自建的预览服务。
   if(current.userContentRendererUrl==='j')values.userContentRendererUrl=undefined;
-  if(name!==undefined)values.deploymentDisplayName=name;
+  if(name!==undefined){values.deploymentDisplayName=name;values.endUserAttribution=false;}
   return values;
 }
 export function buildPlan({appRoot,profilePath,localePath,codeSettingsPath,ultra=false,name}){

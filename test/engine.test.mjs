@@ -24,7 +24,7 @@ test('拒绝路径越界及符号链接',t=>{
 });
 test('配置仅合并功能键，Magpie 并非必需且密钥不进入差异',()=>{
  const profile={inferenceProvider:'gateway',inferenceGatewayBaseUrl:'https://gateway.example',inferenceGatewayApiKey:'test-only-placeholder',userContentRendererUrl:'https://preview.example'};
- const values=configValues(profile,{name:'我的网关'});assert.equal(values.deploymentDisplayName,'我的网关');assert(!('inferenceGatewayApiKey'in values));assert(!('userContentRendererUrl'in values));
+ const values=configValues(profile,{name:'我的网关'});assert.equal(values.deploymentDisplayName,'我的网关');assert.equal(values.endUserAttribution,false);assert(!('inferenceGatewayApiKey'in values));assert(!('userContentRendererUrl'in values));
  assert.throws(()=>configValues({inferenceProvider:'anthropic'}),/Gateway/);assert.throws(()=>configValues(profile,{name:''}),/名称/);
  assert.equal(configValues({...profile,userContentRendererUrl:'j'}).userContentRendererUrl,undefined);
 });
