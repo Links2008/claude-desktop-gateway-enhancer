@@ -20,8 +20,8 @@ if((Get-FileHash -LiteralPath $NodeArchive -Algorithm SHA256).Hash.ToLower()-ne$
 $compiler=Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
 if(-not(Test-Path -LiteralPath $compiler)){throw '需要 Windows 自带的 .NET Framework 4 编译器'}
 New-Item -ItemType Directory -Path $target -Force|Out-Null
-foreach($directory in @('src','locales','docs')){Copy-Item -LiteralPath (Join-Path $repo $directory) -Destination (Join-Path $target $directory) -Recurse}
-foreach($file in @('package.json','README.md','LICENSE','NOTICE','CHANGELOG.md','Enhancer.ps1','Create-Shortcut.ps1')){Copy-Item -LiteralPath (Join-Path $repo $file) -Destination (Join-Path $target $file)}
+foreach($directory in @('src','locales','docs','test','gui','build')){Copy-Item -LiteralPath (Join-Path $repo $directory) -Destination (Join-Path $target $directory) -Recurse}
+foreach($file in @('package.json','README.md','LICENSE','NOTICE','CHANGELOG.md','CONTRIBUTING.md','SECURITY.md','Enhancer.ps1','Create-Shortcut.ps1')){Copy-Item -LiteralPath (Join-Path $repo $file) -Destination (Join-Path $target $file)}
 $unpacked=Join-Path $OutputRoot ('node-unpacked-'+[guid]::NewGuid().ToString('N'))
 Expand-Archive -LiteralPath $NodeArchive -DestinationPath $unpacked
 $runtime=Join-Path $target 'runtime'
