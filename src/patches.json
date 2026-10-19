@@ -1,0 +1,109 @@
+{
+  "version": "2.42304.0",
+  "packageVersion": "2.42304.0.0",
+  "family": "Claude_pzs8sxrjxfjjc",
+  "engine": "2.1.299",
+  "ultraModel": "codex/gpt-6.1-sol",
+  "files": [
+    {
+      "file": "assets/v1/shared-52-DGviI8xb.js",
+      "feature": "ui",
+      "sha256": "F5FF5B662DFC3B5FB6D2B984365C713271ABC7CEA6039ABDD1C1C9C03D0EB1F4",
+      "installedSha256": "1262B0A5434FBE9784A58409F287658A97DE3AF502F102973ED28974BA0DA11B",
+      "edits": [
+        {
+          "before": "var vg=[\"en-US\",",
+          "after": "var vg=[\"zh-Hans\",\"en-US\","
+        }
+      ]
+    },
+    {
+      "file": "assets/v1/shared-19-CkPOiIKm.js",
+      "feature": "ui",
+      "sha256": "45133785DDCDF5381B29E2F313D4500A5FBE23B975FE049A648652D7151870AF",
+      "installedSha256": "36B2F18022D94375484409115D1E0CE04D083C59E5B7AE99A84494B17215FF9A",
+      "edits": [
+        {
+          "before": "Te(S0,!1),x(Of,{size:e===\"sm\"?16:20,className:\"shrink-0\"})",
+          "after": "Te(S0,!1),x(pp,{name:o||\"Links\",src:s,size:\"sm\",className:\"shrink-0\",\"aria-hidden\":!0})"
+        }
+      ]
+    },
+    {
+      "file": "assets/v1/c547d6690-DKK2G4oZ.js",
+      "feature": "ui",
+      "sha256": "567B61B252EA8EE0BFDE0918222C440D5B468DF4B7D3EB8F7317FE55C79C3F8B",
+      "installedSha256": "1AF5E1B33FF916F587142A05C7257160D6F55A334BC02E8EC62ACBFDDB996B19",
+      "edits": [
+        {
+          "before": "function _t(e,t){let[n,r]=f(e).map(e=>M({id:ft[e],intl:t}));return M({id:\"jr5ku\",intl:t,dangerouslyVisiblePublicValues:{shape:M({id:dt[Math.floor((e-1)/lt)],intl:t}),foreground:r,background:n}})}",
+          "after": "function _t(e,t){return `内置头像 ${e}`}"
+        },
+        {
+          "before": "i(N,{id:\"io7wh4\"})",
+          "after": "i(\"span\",{children:\"选择一个内置头像，可随时更换。\"})"
+        },
+        {
+          "before": "children:i(N,{id:\"1vyssq3\"})}),i(xt,",
+          "after": "children:i(\"span\",{children:\"选择头像\"})}),i(xt,"
+        },
+        {
+          "before": "m!==void 0&&M({id:\"57j1zz\",intl:d,dangerouslyVisiblePublicValues:{avatar:_t(m,d)}})",
+          "after": "m!==void 0&&`已选择内置头像 ${m}`"
+        },
+        {
+          "before": "children:i(N,{id:\"1wwoa3p\"})",
+          "after": "children:i(\"span\",{children:\"随机选择\"})"
+        },
+        {
+          "before": "\"aria-label\":M({id:\"1tavo0w\",intl:a})",
+          "after": "\"aria-label\":\"内置头像列表\""
+        },
+        {
+          "before": "control:n(\"div\",{className:\"group/avatar relative w-fit\",children:[n(\"button\",",
+          "after": "control:n(\"div\",{className:\"group/avatar relative w-fit\",children:[i(yt,{open:dt,current:q,hasPhoto:!1,busy:We,onOpenChange:ft,onSave:e=>{ft(!1),Xe(e)}}),n(\"button\","
+        },
+        {
+          "before": "\"aria-label\":f.formatMessage({defaultMessage:\"Randomize avatar\",id:\"36ZWMjyZ50\"}),onClick:()=>Xe(Math.floor(Math.random()*72)+1)",
+          "after": "\"aria-label\":\"选择头像\",onClick:()=>ft(!0)"
+        }
+      ]
+    },
+    {
+      "file": "assets/v1/c227f4d5e-Ba-r--Rl.js",
+      "feature": "ultra",
+      "sha256": "8BA75B8F51894E77145AF7407C8041E911F5DBE35AE6C6196A46EA5F6FA327D0",
+      "installedSha256": "0AA328B8EFD524CDE002B1F427159DB9B30CFE23EB921E351C13CFFECBECA198",
+      "edits": [
+        {
+          "before": "let n=t.effort_options?.length?MK(t.effort_options,!!f):t.effort_options;",
+          "after": "let n=t.effort_options?.length?MK(t.effort_options,!!f):t.effort_options;if(f&&n?.some(e=>e.id===\"xhigh\")&&!n.some(e=>vc(e.id)))n=[...n,{id:\"ultracode\",name:\"Ultra\",description:\"原生动态工作流\"}];"
+        }
+      ]
+    },
+    {
+      "file": "assets/v1/c9543da06-DX8mZLsD.js",
+      "feature": "ultra",
+      "sha256": "91CF927670809197456B6919E8E50F5F727B6D3CC580CFC753027D50C1143455",
+      "installedSha256": "842A47EDE0A612A27389D6921C1CECED54B7DAA96E45CEB4AA56458ED0F749B5",
+      "edits": [
+        {
+          "before": "_e=G&&l?.disableWorkflows?.value!==!0&&u&&(he||oe)&&ge",
+          "after": "_e=G&&l?.disableWorkflows?.value!==!0&&(u||(p===\"codex/gpt-6.1-sol\"&&(e?e.type===\"local\"&&t?.processCliVersion===\"2.1.299\":o===\"local\")&&typeof U===\"function\"&&l!==null&&l!==void 0&&l.managedSettingsPending!==!0&&l.managedSettingsUnverified!==!0&&l.disableWorkflows?.value===!1))&&(he||oe)&&ge"
+        }
+      ]
+    },
+    {
+      "file": "assets/v1/shared-8-B5lJ8U5C.js",
+      "feature": "ultra",
+      "sha256": "09A1C33CF2E31D076F8E1908AB42933E1E6D702120136CD67418793A7657D086",
+      "installedSha256": "AA23956B4E684DE57040B3E106074388C4F42C83ECBBDF442E871047DF72B2B3",
+      "edits": [
+        {
+          "before": "ee=Md(z??\"\",i,{surface:n,effortOverride:a}),te=vp(\"paprika_mode\")",
+          "after": "linksNativeEffort=Md(z??\"\",i,{surface:n,effortOverride:a}),linksUltraOption=n===\"code\"&&a===\"ultracode\"?b?.models.find(e=>e.id===z)?.thinking?.effort_options?.find(e=>e.id===a):void 0,ee=linksUltraOption?{...linksNativeEffort,selected:linksUltraOption}:linksNativeEffort,te=vp(\"paprika_mode\")"
+        }
+      ]
+    }
+  ]
+}

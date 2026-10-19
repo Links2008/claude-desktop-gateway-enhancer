@@ -1,0 +1,12 @@
+{
+  "version": "2.42304.0",
+  "patchFiles": 6,
+  "resourceChanges": 8,
+  "unitTests": 12,
+  "originalAssetsIntegration": "passed",
+  "install": "passed",
+  "repeatedPlan": "passed",
+  "uninstall": "passed",
+  "credentialsPreserved": true,
+  "packagedOriginalAssets": false
+}

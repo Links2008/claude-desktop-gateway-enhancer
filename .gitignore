@@ -1,0 +1,12 @@
+node_modules/
+.state/
+backups/
+*.tmp
+*.log
+*.bin
+*.asar
+*.exe
+*.zip
+.env*
+*profile*.json
+install.json
