@@ -95,9 +95,27 @@
 
 ## 安装
 
+### 普通用户：双击安装 / 卸载
+
+从 [Releases](https://github.com/Links2008/claude-desktop-gateway-enhancer/releases) 下载 **`claude-desktop-gateway-enhancer-0.2.0-windows-x64.zip`**，先解压整个文件夹，然后：
+
+1. 保存工作，从托盘正常退出 Claude。
+2. 双击 **`一键安装.exe`**。窗口自动检查版本和资源，检查通过后点击“安装并自动备份”。
+3. 要恢复时，双击 **`一键卸载.exe`**，点击“卸载并恢复原状”。它卸载的是本插件，不会卸载 Claude 或删除会话。
+
+**不用敲命令，不用另外安装 Node.js。** 完整包内置已校验的官方 Node.js 运行组件。保留 `src`、`locales`、`runtime` 等文件夹，不要只复制两个 EXE；GitHub 自动生成的 Source code ZIP 不包含这些编译入口和运行组件。
+
+安装窗口可选择 Ultra，也可填写显示名称。卸载自动查找当前备份，兼容 0.1.0 默认备份；自定义备份可通过“选择备份”查找。卸载后再次安装会创建新的备份目录，旧备份保留。
+
+写入受保护目录失败时，窗口会显示原因，并提供“管理员重试”。Windows 授权窗口由用户确认，重试保留原用户的配置和备份目录。工具不会强制关闭 Claude，也不会修改资源所有权或 ACL；保护仍拒绝写入时会停止并保留恢复记录。启动器暂未代码签名，Windows 可能显示未知发布者提示，请核对仓库和发行文件，不要关闭系统保护。
+
+![一键安装窗口](docs/screenshots/installer.png)
+
+### 开发者可选：命令行方式
+
 ### 1. 下载并准备
 
-从 [Releases](https://github.com/Links2008/claude-desktop-gateway-enhancer/releases) 下载 `claude-desktop-gateway-enhancer-0.1.0.zip`，解压到普通文件夹。也可以克隆本仓库。
+可以克隆本仓库，或下载发行源码包，解压到普通文件夹。
 
 安装 [Node.js 22+](https://nodejs.org/)，然后在解压目录打开 PowerShell：
 
@@ -170,18 +188,18 @@ node .\src\cli.mjs uninstall --dry-run
 node .\src\cli.mjs uninstall
 ```
 
-默认备份位于 `%LOCALAPPDATA%\ClaudeGatewayEnhancer\0.1.0`。若安装时指定了 `--state-dir`，卸载时使用同一路径。
+新备份自动保存在 `%LOCALAPPDATA%\ClaudeGatewayEnhancer\install-时间-随机标识`；0.1.0 的默认备份目录也会自动识别。若安装时指定了 `--state-dir`，卸载时使用同一路径，图形卸载器也可点击“选择备份”。
 
 卸载恢复**插件安装前的资源**和本插件改动过的设置键，保留会话、凭据及其他配置。假如安装前已经手工打过补丁，卸载会恢复到手工补丁状态。快捷方式是单独的可选工具生成的，需要时手工删除桌面 `Claude.lnk`。
 
 - 不要删除或公开本机备份；其中含客户端原始资源和少量本地设置差异。
 - 客户端升级后可能覆盖补丁。**不要用旧备份覆盖新版本**；哈希不匹配时卸载器会停止。
-- 同一备份目录不重复覆盖。已卸载后再次安装，请指定一个新的空备份目录。
+- 同一备份目录不重复覆盖。已卸载后再次安装会自动新建备份目录；如显式指定目录，该目录必须为空。
 - 如果安装或卸载失败，工具会尝试撤回本次写入，并保留事务记录。出现 `recovery-required` 时先检查备份，不要删除现场或反复覆盖。
 
 ## 验证与已知边界
 
-本次发布包含 12 项自动测试，以及基于本机原版资源隔离副本的安装 / 重复检查 / 卸载验证。详细记录见 [验证说明](docs/verification.md) 和 [验证数据](docs/verification.json)。
+本次发布包含 20 项自动测试，以及基于本机原版资源隔离副本的图形安装 / 卸载 / 再次安装验证。详细记录见 [验证说明](docs/verification.md) 和 [验证数据](docs/verification.json)。
 
 ```powershell
 npm test
@@ -209,11 +227,15 @@ src/             安装器、事务恢复逻辑及最小补丁规则
 locales/         1701 条中文增量资源
 docs/            兼容性、验证说明和真实应用截图
 test/            不含原版代码或真实凭据的测试
+gui/             可审查的 Windows 图形启动器源码
+build/           可重复构建完整 Windows 双击包的脚本
 Enhancer.ps1     PowerShell 命令入口
 Create-Shortcut.ps1 原版桌面快捷方式工具
 ```
 
 安装器没有联网请求，不上传配置、会话或备份。原版 Claude、网关和浏览器自身的网络行为由其各自设置决定。仓库不包含 Claude.exe、app.asar、完整原版脚本、用户配置或登录凭据；安装时在使用者自己的电脑读取原版资源。
+
+发行包包含 Node.js 22.23.3 运行组件及其许可证，见包内 `runtime/LICENSE.txt`；原创安装器仍使用 MIT 许可。构建脚本从 Node.js 官方下载组件并校验固定 SHA256，使用 Windows 自带 .NET Framework 编译图形入口。
 
 ## 问题反馈与贡献
 

@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const root=path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+export const pluginVersion=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8')).version;
 export const compatibility=JSON.parse(fs.readFileSync(path.join(root,'src/patches.json'),'utf8'));
 const translations=JSON.parse(fs.readFileSync(path.join(root,'locales/zh-Hans.json'),'utf8'));
 export const hash=data=>crypto.createHash('sha256').update(data).digest('hex').toUpperCase();
@@ -93,7 +94,7 @@ export function install(plan,stateDir){
   if(fs.readdirSync(stateDir).length)throw Error('备份目录非空，保留现场并停止');
   const records=plan.files.map((f,i)=>({file:f.file,existed:f.before!==null,beforeHash:f.before&&hash(f.before),afterHash:hash(f.data),backup:`resource-${i}.bin`}));
   const configData=plan.configs.map(c=>changedConfig(c.file,c.changes,'install'));
-  const state={schema:1,pluginVersion:'0.1.0',appRoot:plan.appRoot,ultra:plan.ultra,status:'prepared',files:records,configs:plan.configs};
+  const state={schema:1,pluginVersion,appRoot:plan.appRoot,ultra:plan.ultra,status:'prepared',files:records,configs:plan.configs};
   for(let i=0;i<plan.files.length;i++)if(plan.files[i].before)fs.writeFileSync(safePath(stateDir,records[i].backup),plan.files[i].before);
   fs.writeFileSync(stateFile,JSON.stringify(state,null,2));
   const written=[],configsWritten=[];
@@ -110,12 +111,17 @@ export function install(plan,stateDir){
   }
   return state;
 }
-export function uninstall(stateDir){
+export function prepareUninstall(stateDir){
   const stateFile=path.join(stateDir,'install.json'),state=readJson(stateFile);
   if(state.status!=='installed')throw Error('备份事务未处于已安装状态，请检查备份记录');
   // 先验证全部资源与备份，升级或后续修改时不覆盖现场。
   for(const f of state.files){if(hash(fs.readFileSync(f.file))!==f.afterHash)throw Error('资源已经变化，请勿跨版本回滚');if(f.existed&&hash(fs.readFileSync(safePath(stateDir,f.backup)))!==f.beforeHash)throw Error('备份损坏');}
   const configData=state.configs.map(c=>changedConfig(c.file,c.changes,'uninstall'));
+  return {state,configData};
+}
+export function uninstall(stateDir){
+  const stateFile=path.join(stateDir,'install.json');
+  const {state,configData}=prepareUninstall(stateDir);
   const resourceBefore=state.files.map(f=>fs.readFileSync(f.file)),written=[],configsWritten=[];
   try{
     for(let i=0;i<state.files.length;i++){const f=state.files[i];if(f.existed)replace(f.file,fs.readFileSync(safePath(stateDir,f.backup)));else fs.rmSync(f.file);written.push(i);}

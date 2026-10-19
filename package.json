@@ -1,6 +1,6 @@
 {
   "name": "claude-desktop-gateway-enhancer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Claude Desktop Gateway 模式中文、头像、原生 Ultra 与本地功能增强补丁；Magpie 可选。",
   "type": "module",

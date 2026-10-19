@@ -14,3 +14,10 @@ jobs:
         with:
           node-version: '22'
       - run: npm test
+  windows-gui:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 构建双击包并运行原生入口自检
+        shell: pwsh
+        run: ./build/Build-Windows.ps1
